@@ -4320,7 +4320,7 @@ verror@1.3.6:
   dependencies:
     extsprintf "1.0.2"
 
-vinyl@^2.0.1:
+vinyl@^2.0.1, vinyl@^2.0.2:
   version "2.0.2"
   resolved "https://registry.yarnpkg.com/vinyl/-/vinyl-2.0.2.tgz#0a3713d8d4e9221c58f10ca16c0116c9e25eda7c"
   dependencies:

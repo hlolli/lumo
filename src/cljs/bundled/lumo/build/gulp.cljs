@@ -5,24 +5,33 @@
             [cljs.env :as env]
             [lumo.io :as io]))
 
-(def through (js/require "through2"))
+(def through2 (js/require "through2"))
 
-(def vinyl (js/require "vinyl"))
+(def File (js/require "vinyl"))
 
 (defn compile-to-stream [source opts compiler-env]
-  (.obj through
-        (fn [file enc callback]
-          (this-as this
-            (cond
-              (or (.isNull file) (.isDirectory file)) (do (.push this file)
-                                                          (callback))
-              (.isStream file) (do (println "Lumo gulp build error: Streams are not yet supported.")
-                                   (callback))
-              (.isBuffer file)                
-              :else (callback))))))
+  (let [file-list (atom [])
+        js-string (atom "")]
+    (through2
+     ;; Options
+     #js {"objectMode" true}
+     ;; _transform function
+     (fn [file enc callback]
+       (println file)
+       (this-as this
+         (cond
+           (or (.isNull file) (.isDirectory file)) (.push this file)
+           (.isStream file) (println "Lumo gulp build error: Streams are not yet supported.")
+           (.isBuffer file) (swap! file-list conj file)
+           :else nil)
+         (callback)))
+     ;; _flush function
+     (fn [callback]
+       (this-as this
+         (println "File-list: " @file-list)
+         (callback))))))
 
 (defn build
-  "Given a source which can be compiled, produce runnable JavaScript."
   ([source opts]
    (build source opts
           (env/default-compiler-env
@@ -34,3 +43,4 @@
    (binding [ana/*cljs-warning-handlers* (:warning-handlers opts ana/*cljs-warning-handlers*)]
      (compile-to-stream source opts compiler-env))))
 
+(defn debug [] (println "mahhildur1"))

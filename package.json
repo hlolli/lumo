@@ -27,7 +27,9 @@
     "jszip": "2.6.1",
     "opencollective": "^1.0.0",
     "parinfer": "2.0.0",
-    "posix-getopt": "github:anmonteiro/node-getopt#master"
+    "posix-getopt": "github:anmonteiro/node-getopt#master",
+    "through2": "^2.0.3",
+    "vinyl": "^2.0.2"
   },
   "devDependencies": {
     "babel-eslint": "^7.2.3",

@@ -22,3 +22,8 @@
     :else (do
             (js/console.log "omg it happened" file-or-resource (pr-str file-or-resource))
             (throw (ex-info "should never happen!" {:x file-or-resource})))))
+
+(defn get-stdin []
+  (let [stdin (.-stdin js/process)
+        ret (atom "")]
+    ))

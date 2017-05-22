@@ -28,7 +28,8 @@
      ;; _flush function
      (fn [callback]
        (this-as this
-         (println "File-list: " @file-list)
+         (.push this @file-list)
+         (.push this "Who am I? Where am I?")
          (callback))))))
 
 (defn build
@@ -43,4 +44,5 @@
    (binding [ana/*cljs-warning-handlers* (:warning-handlers opts ana/*cljs-warning-handlers*)]
      (compile-to-stream source opts compiler-env))))
 
-(defn debug [] (println "mahhildur1"))
+(defn debug []
+  (.on process/stdin "readable" (fn [data] (print data))))

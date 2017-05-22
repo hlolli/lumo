@@ -1,8 +1,8 @@
 (ns lumo.core)
 
 (goog-define
-  ^{:doc "A string containing the version of the Lumo executable."}
-  *lumo-version* "")
+ ^{:doc "A string containing the version of the Lumo executable."}
+ *lumo-version* "")
 
 (defonce
   ^{:dynamic true

@@ -7,19 +7,21 @@ var gulp = require("gulp");
 var cljsBuild = `(require '[lumo.build.gulp :as b]) (b/debug)`;
 
 gulp.task('default', function () {
-  gulp.src('gulp-test/testfile.cljs', {buffer: false})
+  gulp.src('gulp-test/testfile.cljs', {buffer: false}) 
     .pipe(spawn({cmd: "node",
-    		 args: ["target/bundle",
-			"-k",
-			"lumo-cache",
-			"-c",
-			"target",
-			"-",
-			"-e",
-			`(println "sadhshadas")`
-			// cljsBuild
-		       ]}))
-    .pipe(gulp.dest('gulp-test/tmp'))});
+		 args: ["target/bundle",
+    			"-k",
+    			"lumo-cache",
+    			"-c",
+    			"target",
+    			// "-",
+    			"-e",
+    			// `(println "sadhshadas")`
+    			cljsBuild
+  			// cljsBuild
+  		       ]
+  		}))
+    .pipe(gulp.dest('out'))});
 
 
 // .pipe(spawn({cmd: "yarn",
